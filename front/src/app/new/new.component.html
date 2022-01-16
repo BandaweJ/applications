@@ -1,1 +1,119 @@
-<p>new works!</p>
+<div class="row">
+  <form class="p-3 col-md-8 mx-auto" [formGroup]="appForm" (ngSubmit)="onSubmit()">
+    <fieldset class="row border p-3 my-2" formGroupName="personalDetails">
+      <legend class="w-auto px-2"><small>Personal Details</small></legend>
+        <div class="row gx-3 p-1">
+          <div class="col-md-6">
+            <label for="firstname" class="form-label" aria-placeholder="Enter Firstname">First Name(s)</label>
+            <input type="text" class="form-control" id="firstname" formControlName="firstname">
+          </div>
+          <div class="col-md-6">
+            <label for="lastname" class="form-label" aria-placeholder="Enter Lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" formControlName="lastname">
+          </div>
+        </div>
+        <div class="row gx-3 p-1">
+          <div class="col-md-5">
+            <label for="idnumber" class="form-label" aria-placeholder="02-098765-A-99">I.D Number</label>
+            <input type="text" class="form-control" id="idnumber" formControlName="idnumber">
+          </div>
+          <div class="col-md-3">
+            <label for="sex" class="form-label" aria-placeholder="Choose Gender">Choose Gender</label>
+            <select id="sex" class="form-control" formControlName="sex">
+              <option [value]="gender" *ngFor="let gender of genders">{{ gender }}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="dob" class="form-label" aria-placeholder="date of birth">Date of Birth</label>
+            <input type="date" class="form-control" id="dob" formControlName="dob">
+          </div>
+        </div>
+    </fieldset>
+    <fieldset class="row border p-3 my-2" formGroupName="parentDetails">
+      <legend class="w-auto px-2"><small>Parent Details</small></legend>
+      <div class="row gx-3 p-1">
+        <div class="col-md-4">
+          <label for="title" class="form-label" aria-placeholder="Parent Title">Parent Title</label>
+          <select id="title" class="form-control" formControlName="title">
+            <option value="">Click to Choose</option>
+            <option [value]="title" *ngFor="let title of titles">{{ title }}</option>
+          </select>
+        </div>
+        <div class="col-md-8">
+          <label for="pname" class="form-label" aria-placeholder="Enter Name">Parent Name</label>
+          <input type="text" class="form-control" id="pname" formControlName="name">
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="row border p-3" formGroupName="contactDetails">
+      <legend class="w-auto px-2"><small>Contact Details</small></legend>
+      <div class="row gx-3 p-1">
+        <div class="col-md-6">
+          <label for="email" class="form-label" aria-placeholder="Enter Email">Email</label>
+          <input type="email" class="form-control" id="email" formControlName="email">
+        </div>
+        <div class="col-md-6">
+          <label for="cell" class="form-label" aria-placeholder="Enter Cell">Cell</label>
+          <input type="tel" class="form-control" id="cell" formControlName="cell">
+        </div>
+      </div>
+      <div class="row gx-3 p-1">
+        <div class="col-md-12">
+          <label for="address" class="form-label" aria-placeholder="Enter Address">Address</label>
+          <input type="text" class="form-control" id="address" formControlName="address">
+        </div>
+      </div>
+    </fieldset>
+    <fieldset class="row border p-3 my-2" formGroupName="academicDetails">
+      <legend class="w-auto px-2"><small>Academic Details</small></legend>
+      <div class="row gx-3 p-1">
+        <div class="col-md-7">
+          <label for="prevschool" class="form-label" aria-placeholder="Previus School">Previus School</label>
+          <input type="text" class="form-control" id="prevschool" formControlName="prevschool">
+        </div>
+        <div class="col-md-3">
+          <label for="level" class="form-label" aria-placeholder="Level applied for">Level Applied For</label>
+          <select class="form-control" id="level" formControlName="level">
+            <option value="">Click to choose</option>
+            <option [value]="level" *ngFor="let level of levels">Form {{ level }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row gx-3 p-1">
+        <div class="col-md-12">
+          <label for="results" class="form-label">Previus Results (click the plus button to add subjects)</label>
+        </div>
+        <table class="col-12 table table-striped table-borderless table-hover" formArrayName="subjects">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Grade</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let subject of subjects.controls; let i=index">
+            <tr [formGroupName]="i">
+              <td>{{ i }}</td>
+              <td><input type="text" class="form-control" formControlName="name"></td>
+              <td><input type="text" class="form-control" formControlName="grade"></td>
+              <td><button type="button" class="btn btn-danger" (click)="removeSubject(i)">X</button></td>
+            </tr>
+          </tbody>
+
+        </table>
+        <div class="col-12"><button type="button" class="btn btn-primary d-block mx-auto" (click)="addSubjects()">+</button></div>
+      </div>
+    </fieldset>
+    <div class="row border p-3 my-2">
+      <div class="col-4 mx-auto">
+        <button class="btn btn-outline btn-primary mx-3" type="submit">APPLY</button>
+        <button class="btn btn-outline btn-danger mx-3" type="button">CLEAR</button>
+      </div>
+
+
+    </div>
+
+  </form>
+
+</div>
