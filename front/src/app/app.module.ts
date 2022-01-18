@@ -10,6 +10,10 @@ import { ManageComponent } from './manage/manage.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ManageApplicationsComponent } from './manage-applications/manage-applications.component';
+import { ManageSchoolsComponent } from './manage-schools/manage-schools.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SchoolsService } from './manage-schools/schools.service';
 
 @NgModule({
   declarations: [
@@ -19,14 +23,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     TrackComponent,
     ManageComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    ManageApplicationsComponent,
+    ManageSchoolsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [SchoolsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

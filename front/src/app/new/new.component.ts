@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SchoolsService } from '../manage-schools/schools.service';
+import { GetSchool } from '../models/get-school';
 
 @Component({
   selector: 'app-new',
@@ -8,6 +10,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class NewComponent implements OnInit {
 
+  schools!: GetSchool[];
   appForm!: FormGroup;
   genders: string[] = ['Male', 'Female', 'Other'];
   titles: string[] = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr', 'Prof'];
@@ -15,9 +18,14 @@ export class NewComponent implements OnInit {
   names: string[] = ['Maths', 'Physics', 'Biology', 'Chemistry', 'Technical Drawing', 'Accounts', 'Economics', 'Business Studies'];
   grades: string[] = ['A', 'B', 'C', 'D', 'E',];
 
-  constructor() { }
+  constructor(private schoolsService: SchoolsService) { }
 
   ngOnInit(): void {
+
+    this.schoolsService.getSchools().subscribe(schools => {
+      this.schools = schools;
+    })
+
     this.appForm = new FormGroup({
       personalDetails: new FormGroup({
         firstname: new FormControl(null, Validators.required),

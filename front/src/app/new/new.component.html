@@ -115,5 +115,10 @@
     </div>
 
   </form>
+  <div class="row">
+    <div *ngFor="let school of schools" class="col-12">
+      <p>{{ school.name }}</p><p>{{ school.email }}</p>
+    </div>
+  </div>
 
 </div>
