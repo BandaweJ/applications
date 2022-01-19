@@ -1,6 +1,6 @@
 <div class="row">
   <form class="p-3 col-md-8 mx-auto" [formGroup]="appForm" (ngSubmit)="onSubmit()">
-    <fieldset class="row border p-3 my-2" formGroupName="personalDetails">
+    <fieldset class="row border p-3 my-2 bg" formGroupName="personalDetails">
       <legend class="w-auto px-2"><small>Personal Details</small></legend>
         <div class="row gx-3 p-1">
           <div class="col-md-6">
@@ -29,7 +29,7 @@
           </div>
         </div>
     </fieldset>
-    <fieldset class="row border p-3 my-2" formGroupName="parentDetails">
+    <fieldset class="row border p-3 my-2 bg" formGroupName="parentDetails">
       <legend class="w-auto px-2"><small>Parent Details</small></legend>
       <div class="row gx-3 p-1">
         <div class="col-md-4">
@@ -45,7 +45,7 @@
         </div>
       </div>
     </fieldset>
-    <fieldset class="row border p-3" formGroupName="contactDetails">
+    <fieldset class="row border p-3 bg" formGroupName="contactDetails">
       <legend class="w-auto px-2"><small>Contact Details</small></legend>
       <div class="row gx-3 p-1">
         <div class="col-md-6">
@@ -66,22 +66,32 @@
     </fieldset>
     <fieldset class="row border p-3 my-2" formGroupName="academicDetails">
       <legend class="w-auto px-2"><small>Academic Details</small></legend>
-      <div class="row gx-3 p-1">
-        <div class="col-md-7">
-          <label for="prevschool" class="form-label" aria-placeholder="Previus School">Previus School</label>
+      <div class="row gx-3 p-1 bg">
+        <div class="col-md-8">
+          <label for="prevschool" class="form-label" aria-placeholder="Previus School">Previous School</label>
           <input type="text" class="form-control" id="prevschool" formControlName="prevschool">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <label for="level" class="form-label" aria-placeholder="Level applied for">Level Applied For</label>
           <select class="form-control" id="level" formControlName="level">
             <option value="">Click to choose</option>
             <option [value]="level" *ngFor="let level of levels">Form {{ level }}</option>
           </select>
         </div>
+        <div class="col-12 py-2" *ngIf="level.value == 5 || level.value == 6">
+          <label class="form-label">Subject Combination (max 4)</label>
+          <input class="form-control" (change)="chooseSubject(subject.value)" #subject list="subjs" id="subjs">
+          <datalist id="subjs">
+            <option *ngFor="let subjName of names" [value]="subjName">{{ subjName }}</option>
+          </datalist>
+          <ul>
+            <li *ngFor="let subj of chosenSubjs">{{ subj }}</li>
+          </ul>
+        </div>
       </div>
-      <div class="row gx-3 p-1">
+      <div class="row gx-3 p-1 border my-3 bg">
         <div class="col-md-12">
-          <label for="results" class="form-label">Previus Results (click the plus button to add subjects)</label>
+          <label for="results" class="form-label">Previous Results (click the plus button to add subjects)</label>
         </div>
         <table class="col-12 table table-striped table-borderless table-hover" formArrayName="subjects">
           <thead>
@@ -95,7 +105,12 @@
           <tbody *ngFor="let subject of subjects.controls; let i=index">
             <tr [formGroupName]="i">
               <td>{{ i }}</td>
-              <td><input type="text" class="form-control" formControlName="name"></td>
+              <td>
+                <input class="form-control" formControlName="name" list="name">
+                <datalist id="name">
+                  <option *ngFor="let subjName of names" [value]="subjName">{{ subjName }}</option>
+                </datalist>
+              </td>
               <td><input type="text" class="form-control" formControlName="grade"></td>
               <td><button type="button" class="btn btn-danger" (click)="removeSubject(i)">X</button></td>
             </tr>
@@ -104,8 +119,25 @@
         </table>
         <div class="col-12"><button type="button" class="btn btn-primary d-block mx-auto" (click)="addSubjects()">+</button></div>
       </div>
+      <div class="row gx-3 p-1 border bg">
+        <div class="col-12">
+          <h4>Choose Schools to Apply to</h4>
+        </div>
+        <div class="col-6">
+          <h6>Click name to select</h6>
+          <ul>
+            <li *ngFor="let school of schools" (click)="onSelectSchool(school)" class="btn btn-outline-warning d-block my-2">{{ school.name }}</li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <h6>Selected Schools</h6>
+          <ul>
+            <li *ngFor="let selected of selectedSchools" class="bg-info my-2 p-2 text-white clearfix">{{ selected.name }} <span (click)="deleteSchool(selected)" class="bg-danger px-2 float-end">X</span></li>
+          </ul>
+        </div>
+      </div>
     </fieldset>
-    <div class="row border p-3 my-2">
+    <div class="row border p-3 my-2 bg">
       <div class="col-4 mx-auto">
         <button class="btn btn-outline btn-primary mx-3" type="submit">APPLY</button>
         <button class="btn btn-outline btn-danger mx-3" type="button">CLEAR</button>
@@ -115,10 +147,5 @@
     </div>
 
   </form>
-  <div class="row">
-    <div *ngFor="let school of schools" class="col-12">
-      <p>{{ school.name }}</p><p>{{ school.email }}</p>
-    </div>
-  </div>
 
 </div>

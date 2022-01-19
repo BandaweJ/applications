@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { SchoolsService } from '../manage-schools/schools.service';
 import { GetSchool } from '../models/get-school';
 
@@ -11,11 +12,15 @@ import { GetSchool } from '../models/get-school';
 export class NewComponent implements OnInit {
 
   schools!: GetSchool[];
+  selectedSchools: GetSchool[] = [];
+  chosenSubjs: string[] = [];
+
   appForm!: FormGroup;
+
   genders: string[] = ['Male', 'Female', 'Other'];
   titles: string[] = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr', 'Prof'];
   levels: string[] = ['1', '2', '3', '4', '5', '6'];
-  names: string[] = ['Maths', 'Physics', 'Biology', 'Chemistry', 'Technical Drawing', 'Accounts', 'Economics', 'Business Studies'];
+  names: string[] = ['Maths', 'Physics', 'Biology', 'Chemistry', 'Technical Drawing', 'Accounts', 'Economics', 'Business Studies', 'Commerce', 'Shona', 'English Language', 'English Literature', 'Bible Knowledge', 'History'];
   grades: string[] = ['A', 'B', 'C', 'D', 'E',];
 
   constructor(private schoolsService: SchoolsService) { }
@@ -52,11 +57,35 @@ export class NewComponent implements OnInit {
   }
 
   onSubmit(){
+    console.log('Info: ');
     console.log(this.appForm.value);
+    console.log('Choices: ');
+    console.log(this.selectedSchools);
   }
 
   get subjects(){
     return this.appForm.get('academicDetails.subjects') as FormArray;
+  }
+
+  get level(){
+    return this.appForm.get('academicDetails.level') as FormControl;
+  }
+
+  onSelectSchool(school: GetSchool){
+    if(!this.selectedSchools.includes(school)){
+      this.selectedSchools.push(school);
+    }
+  }
+
+  deleteSchool(school: GetSchool){
+    this.selectedSchools = this.selectedSchools.filter(sch => {
+      if(sch === school){
+        return false;
+      }
+      else{
+        return true;
+      }
+    })
   }
 
   addSubjects(){
@@ -69,6 +98,10 @@ export class NewComponent implements OnInit {
 
   removeSubject(index: number){
     this.subjects.removeAt(index);
+  }
+
+  chooseSubject(subject: string){
+    this.chosenSubjs.push(subject);
   }
 
 }

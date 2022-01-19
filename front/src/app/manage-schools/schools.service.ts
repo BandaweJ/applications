@@ -9,7 +9,7 @@ import { CreateSchool } from '../models/create-school';
 })
 export class SchoolsService {
 
-  baseURL: string = 'localhost:3000/schools';
+  baseURL: string = 'http://localhost:3000/schools';
 
   constructor(private httpClient: HttpClient) {
    }
