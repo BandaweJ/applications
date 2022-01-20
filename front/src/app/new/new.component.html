@@ -79,13 +79,13 @@
           </select>
         </div>
         <div class="col-12 py-2" *ngIf="level.value == 5 || level.value == 6">
-          <label class="form-label">Subject Combination (max 4)</label>
-          <input class="form-control" (change)="chooseSubject(subject.value)" #subject list="subjs" id="subjs">
-          <datalist id="subjs">
-            <option *ngFor="let subjName of names" [value]="subjName">{{ subjName }}</option>
+          <label class="form-label" for="sname">Subject Combination (max 5)</label>
+          <input class="form-control" list="comb" (change)="chooseSubject(subj.value)" #subj>
+          <datalist id="comb">
+            <option *ngFor="let comb of names" [value]="comb">{{ comb }}</option>
           </datalist>
           <ul>
-            <li *ngFor="let subj of chosenSubjs">{{ subj }}</li>
+            <li *ngFor="let subj of chosenSubjs" class="bg-info my-2 p-2 text-white w-25 clearfix">{{ subj }} <span (click)="remove(subj)" class="bg-danger px-2 float-end">X</span></li>
           </ul>
         </div>
       </div>
@@ -111,8 +111,13 @@
                   <option *ngFor="let subjName of names" [value]="subjName">{{ subjName }}</option>
                 </datalist>
               </td>
-              <td><input type="text" class="form-control" formControlName="grade"></td>
-              <td><button type="button" class="btn btn-danger" (click)="removeSubject(i)">X</button></td>
+              <td>
+                <input type="text" class="form-control" formControlName="grade" list="grade">
+                <datalist id="grade">
+                  <option *ngFor="let grade of grades" [value]="grade">{{ grade }}</option>
+                </datalist>
+              </td>
+              <td><button type="button" class="btn btn-danger d-block mx-auto" (click)="removeSubject(i)">X</button></td>
             </tr>
           </tbody>
 

@@ -11,9 +11,9 @@ import { GetSchool } from '../models/get-school';
 })
 export class NewComponent implements OnInit {
 
-  schools!: GetSchool[];
-  selectedSchools: GetSchool[] = [];
-  chosenSubjs: string[] = [];
+  schools!: GetSchool[];//list of registered school
+  selectedSchools: GetSchool[] = [];//schools applied to
+  chosenSubjs: string[] = [];//subject chosen for A level combinations
 
   appForm!: FormGroup;
 
@@ -101,7 +101,17 @@ export class NewComponent implements OnInit {
   }
 
   chooseSubject(subject: string){
-    this.chosenSubjs.push(subject);
+    if(this.chosenSubjs.length <= 4 || !this.chosenSubjs.includes(subject)){
+      this.chosenSubjs.push(subject);
+    }
+
+  }
+
+  remove(subject: string){
+    const index = this.chosenSubjs.indexOf(subject);
+
+    this.chosenSubjs.splice(index, 1);
+
   }
 
 }
