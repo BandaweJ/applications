@@ -1,16 +1,33 @@
-import { Controller, Get } from '@nestjs/common';
-import { GetSchoolsDto } from '../models/get-schools-dto';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { SchoolsEntity } from './entities/schools.entity';
+import { SchoolsService } from './schools.service';
+import { CreateSchoolDto } from '../models/create-school-dto';
+import { UpdateSchoolDto } from '../models/update-school-dto';
 
 @Controller('schools')
 export class SchoolsController {
 
-    schools: GetSchoolsDto[] = [
-        { id: 'S2019876', name: 'Sandon Academy', email: 'sandon@google.com', cell: '0778261057', address: 'Gutu' },
-        { id: 'S2013456', name: 'Gutu High', email: 'gutuhigh@google.com', cell: '0778261057', address: 'Gutu' }
-    ]
+    constructor(private schoolsService: SchoolsService){}
 
     @Get()
-    getSchools(){
-        return this.schools;
+    getAllSchools(){
+        return this.schoolsService.getAllSchools();
     }
+
+    @Get('/:id')
+    getSchoolById(@Param('id') id: string){
+        return this.schoolsService.getSchoolById(id);
+    }
+
+    @Post()
+    createSchool(@Body() createSchoolDto: CreateSchoolDto){
+        //return 'in schools controller';
+        return this.schoolsService.createSchool(createSchoolDto);
+    }
+
+    @Patch('/:id')
+    updateSchool(@Param('id') id: string, @Body () updateSchoolDto: UpdateSchoolDto){
+        return this.schoolsService.updateSchool(id, updateSchoolDto)
+    }
+
 }

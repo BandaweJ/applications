@@ -15,6 +15,7 @@ import { ManageSchoolsComponent } from './manage-schools/manage-schools.componen
 import { HttpClientModule } from '@angular/common/http';
 import { SchoolsService } from './manage-schools/schools.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,

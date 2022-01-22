@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { SchoolsController } from './schools/schools.controller';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { type } from 'os';
+
+import { SchoolsModule } from './schools/schools.module';
 
 @Module({
   imports: [
@@ -15,15 +14,16 @@ import { type } from 'os';
       type: 'mysql',
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      entities: [],
+      username: 'root',
+      password: '',
+      database: 'applications',
+      entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
     }
-    )
+    ),
+    SchoolsModule
 ],
-  controllers: [AppController, SchoolsController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

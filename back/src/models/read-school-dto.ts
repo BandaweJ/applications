@@ -1,7 +1,7 @@
-export class GetSchoolsDto {
+export class ReadSchoolDto {
     id: string;
     name: string;
-    email: string;
     cell: string;
+    email: string;
     address: string;
 }
