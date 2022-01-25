@@ -129,10 +129,11 @@
           <h4>Choose Schools to Apply to</h4>
         </div>
         <div class="col-6">
-          <h6>Click name to select</h6>
-          <ul>
-            <li *ngFor="let school of schools" (click)="onSelectSchool(school)" class="btn btn-outline-warning d-block my-2">{{ school.name }}</li>
-          </ul>
+          <label for="choice" class="form-label">Click to select (hold shift to select more than one):</label>
+          <select multiple class="form-select" id="choice">
+            <option *ngFor="let school of schools" [value]="school" (click)="onSelectSchool(school)">{{ school.name }}</option>
+          </select>
+
         </div>
         <div class="col-6">
           <h6>Selected Schools</h6>

@@ -9,7 +9,7 @@ import { TrackComponent } from './track/track.component';
 import { ManageComponent } from './manage/manage.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManageApplicationsComponent } from './manage-applications/manage-applications.component';
 import { ManageSchoolsComponent } from './manage-schools/manage-schools.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -32,6 +32,7 @@ import { SchoolsService } from './manage-schools/schools.service';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
   ],
   providers: [SchoolsService],

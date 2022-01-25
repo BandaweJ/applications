@@ -12,6 +12,8 @@ import { GetSchool } from '../models/get-school';
 export class NewComponent implements OnInit {
 
   schools!: GetSchool[];//list of registered school
+  currentSchool!: GetSchool;
+
   selectedSchools: GetSchool[] = [];//schools applied to
   chosenSubjs: string[] = [];//subject chosen for A level combinations
 
@@ -52,15 +54,22 @@ export class NewComponent implements OnInit {
         prevschool: new FormControl(null, Validators.required),
         level: new FormControl(null, Validators.required),
         subjects: new FormArray([]),
+        schoolName: new FormControl(null)
       })
     })
   }
 
   onSubmit(){
-    console.log('Info: ');
+    console.log('Form: ');
     console.log(this.appForm.value);
-    console.log('Choices: ');
+    console.log('Selected Schools: ');
     console.log(this.selectedSchools);
+    console.log('Subject Combination: ');
+    console.log(this.chosenSubjs);
+  }
+
+  get schoolName(){
+    return this.appForm.get('academicDetails.schoolName');
   }
 
   get subjects(){
