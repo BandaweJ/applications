@@ -54,22 +54,44 @@ export class NewComponent implements OnInit {
         prevschool: new FormControl(null, Validators.required),
         level: new FormControl(null, Validators.required),
         subjects: new FormArray([]),
-        schoolName: new FormControl(null)
       })
     })
   }
 
-  onSubmit(){
-    console.log('Form: ');
-    console.log(this.appForm.value);
-    console.log('Selected Schools: ');
-    console.log(this.selectedSchools);
-    console.log('Subject Combination: ');
-    console.log(this.chosenSubjs);
+  get dob(){
+    return this.appForm.get('personalDetails.dob');
   }
 
-  get schoolName(){
-    return this.appForm.get('academicDetails.schoolName');
+  get sex(){
+    return this.appForm.get('personalDetails.sex');
+  }
+
+  get idnumber(){
+    return this.appForm.get('personalDetails.idnumber');
+  }
+
+  get lastname(){
+    return this.appForm.get('personalDetails.lastname');
+  }
+
+  get firstname(){
+    return this.appForm.get('personalDetails.firstname');
+  }
+
+  get pname(){
+    return this.appForm.get('parentDetails.name');
+  }
+
+  get ptitle(){
+    return this.appForm.get('parentDetails.title')
+  }
+
+  get email(){
+    return this.appForm.get("contactDetails.email");
+  }
+
+  get prevschool(){
+    return this.appForm.get('academicDetails.prevschool');
   }
 
   get subjects(){
@@ -122,5 +144,15 @@ export class NewComponent implements OnInit {
     this.chosenSubjs.splice(index, 1);
 
   }
+
+  onSubmit(){
+    console.log('Form: ');
+    console.log(this.appForm.value);
+    console.log('Selected Schools: ');
+    console.log(this.selectedSchools);
+    console.log('Subject Combination: ');
+    console.log(this.chosenSubjs);
+  }
+
 
 }
