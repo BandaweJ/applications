@@ -1,4 +1,11 @@
-.bg{
-
+.bg {
   background-color: lightgray;
+}
+.valid {
+  color: green;
+  font-size: small;
+}
+.invalid {
+  color: red;
+  font-size: small;
 }

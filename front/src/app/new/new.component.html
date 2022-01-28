@@ -19,18 +19,33 @@
             class="form-control"
             id="firstname"
             formControlName="firstname"
+            [ngClass]="
+              !firstname?.valid && firstname?.touched
+                ? 'is-invalid'
+                : firstname?.touched && firstname?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
           <div
             class="valid-feedback"
-            *ngIf="firstname?.dirty && firstname?.valid"
+            *ngIf="firstname?.valid && firstname?.touched"
           >
             Looks good
           </div>
           <div
             class="invalid-feedback"
-            *ngIf="firstname?.touched && !firstname?.valid"
+            *ngIf="firstname?.invalid && firstname?.touched"
           >
-            Name is not valid
+            <div *ngIf="firstname?.hasError('required')">Name is required</div>
+            <div *ngIf="firstname?.hasError('minlength')">
+              Name must be at least
+              {{ firstname?.errors?.minlength.requiredLength }} characters
+            </div>
+            <div *ngIf="firstname?.hasError('maxlength')">
+              Name must be at most
+              {{ firstname?.errors?.maxlength.requiredLength }} characters
+            </div>
           </div>
         </div>
         <div class="col-md-6">
@@ -45,7 +60,34 @@
             class="form-control"
             id="lastname"
             formControlName="lastname"
+            [ngClass]="
+              !lastname?.valid && lastname?.touched
+                ? 'is-invalid'
+                : lastname?.touched && lastname?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
+          <div
+            class="valid-feedback"
+            *ngIf="lastname?.valid && lastname?.touched"
+          >
+            Looks good
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="lastname?.invalid && lastname?.touched"
+          >
+            <div *ngIf="lastname?.hasError('required')">Name is required</div>
+            <div *ngIf="lastname?.hasError('minlength')">
+              Name must be at least
+              {{ lastname?.errors?.minlength.requiredLength }} characters
+            </div>
+            <div *ngIf="lastname?.hasError('maxlength')">
+              Name must be at most
+              {{ lastname?.errors?.maxlength.requiredLength }} characters
+            </div>
+          </div>
         </div>
       </div>
       <div class="row gx-3 p-1">
@@ -61,17 +103,66 @@
             class="form-control"
             id="idnumber"
             formControlName="idnumber"
+            [ngClass]="
+              !idnumber?.valid && idnumber?.touched
+                ? 'is-invalid'
+                : idnumber?.touched && idnumber?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
+          <div
+            class="valid-feedback"
+            *ngIf="idnumber?.valid && idnumber?.touched"
+          >
+            Looks good
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="idnumber?.invalid && idnumber?.touched"
+          >
+            <div *ngIf="idnumber?.hasError('required')">
+              I.D Number is required
+            </div>
+            <div *ngIf="idnumber?.hasError('pattern')">
+              I.D Number format is wrong
+            </div>
+            <div *ngIf="idnumber?.hasError('minlength')">
+              I.D Number must be at least
+              {{ idnumber?.errors?.minlength.requiredLength }} characters
+            </div>
+            <div *ngIf="idnumber?.hasError('maxlength')">
+              I.D Number must be at most
+              {{ idnumber?.errors?.maxlength.requiredLength }} characters
+            </div>
+          </div>
         </div>
         <div class="col-md-3">
           <label for="sex" class="form-label" aria-placeholder="Choose Gender"
             >Choose Gender</label
           >
-          <select id="sex" class="form-control" formControlName="sex">
+          <select
+            id="sex"
+            class="form-control"
+            formControlName="sex"
+            [ngClass]="
+              !sex?.valid && sex?.touched
+                ? 'is-invalid'
+                : sex?.touched && sex?.valid
+                ? 'is-valid'
+                : ''
+            "
+          >
             <option [value]="gender" *ngFor="let gender of genders">
               {{ gender }}
             </option>
           </select>
+          <div class="valid-feedback" *ngIf="sex?.valid && sex?.touched">
+            Looks good
+          </div>
+          <div class="invalid-feedback" *ngIf="sex?.invalid && sex?.touched">
+            <div *ngIf="sex?.hasError('required')">Gender is required</div>
+          </div>
         </div>
         <div class="col-md-4">
           <label for="dob" class="form-label" aria-placeholder="date of birth"
@@ -82,7 +173,22 @@
             class="form-control"
             id="dob"
             formControlName="dob"
+            [ngClass]="
+              !dob?.valid && dob?.touched
+                ? 'is-invalid'
+                : dob?.touched && dob?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
+          <div class="valid-feedback" *ngIf="dob?.valid && dob?.touched">
+            Looks good
+          </div>
+          <div class="invalid-feedback" *ngIf="dob?.invalid && dob?.touched">
+            <div *ngIf="dob?.hasError('required')">
+              Date of Birth is required
+            </div>
+          </div>
         </div>
       </div>
     </fieldset>
@@ -93,12 +199,34 @@
           <label for="title" class="form-label" aria-placeholder="Parent Title"
             >Parent Title</label
           >
-          <select id="title" class="form-control" formControlName="title">
+          <select
+            id="title"
+            class="form-control"
+            formControlName="title"
+            [ngClass]="
+              !ptitle?.valid && ptitle?.touched
+                ? 'is-invalid'
+                : ptitle?.touched && ptitle?.valid
+                ? 'is-valid'
+                : ''
+            "
+          >
             <option value="">Click to Choose</option>
             <option [value]="title" *ngFor="let title of titles">
               {{ title }}
             </option>
           </select>
+          <div class="valid-feedback" *ngIf="ptitle?.valid && ptitle?.touched">
+            Looks good
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="ptitle?.invalid && ptitle?.touched"
+          >
+            <div *ngIf="ptitle?.hasError('required')">
+              Parent title is required
+            </div>
+          </div>
         </div>
         <div class="col-md-8">
           <label for="pname" class="form-label" aria-placeholder="Enter Name"
@@ -109,7 +237,33 @@
             class="form-control"
             id="pname"
             formControlName="name"
+            [ngClass]="
+              !pname?.valid && pname?.touched
+                ? 'is-invalid'
+                : pname?.touched && pname?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
+          <div class="valid-feedback" *ngIf="pname?.valid && pname?.touched">
+            Looks good
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="pname?.invalid && pname?.touched"
+          >
+            <div *ngIf="pname?.hasError('required')">
+              Parent Name is required
+            </div>
+            <div *ngIf="pname?.hasError('minlength')">
+              Parent Name must be at least
+              {{ pname?.errors?.minlength.requiredLength }} characters
+            </div>
+            <div *ngIf="pname?.hasError('maxlength')">
+              Parent Name must be at most
+              {{ pname?.errors?.maxlength.requiredLength }} characters
+            </div>
+          </div>
         </div>
       </div>
     </fieldset>
@@ -125,7 +279,24 @@
             class="form-control"
             id="email"
             formControlName="email"
+            [ngClass]="
+              !email?.valid && email?.touched
+                ? 'is-invalid'
+                : email?.touched && email?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
+          <div class="valid-feedback" *ngIf="email?.valid && email?.touched">
+            Looks good
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="email?.invalid && email?.touched"
+          >
+            <div *ngIf="email?.hasError('required')">Email is required</div>
+            <div *ngIf="email?.hasError('email')">Email is not valid</div>
+          </div>
         </div>
         <div class="col-md-6">
           <label for="cell" class="form-label" aria-placeholder="Enter Cell"
@@ -136,7 +307,23 @@
             class="form-control"
             id="cell"
             formControlName="cell"
+            [ngClass]="
+              !cell?.valid && cell?.touched
+                ? 'is-invalid'
+                : cell?.touched && cell?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
+          <div class="valid-feedback" *ngIf="cell?.valid && cell?.touched">
+            Looks good
+          </div>
+          <div class="invalid-feedback" *ngIf="cell?.invalid && cell?.touched">
+            <div *ngIf="cell?.hasError('required')">
+              Cell Number is required
+            </div>
+            <div *ngIf="cell?.hasError('pattern')">Number is not valid</div>
+          </div>
         </div>
       </div>
       <div class="row gx-3 p-1">
@@ -152,7 +339,30 @@
             class="form-control"
             id="address"
             formControlName="address"
+            [ngClass]="
+              !address?.valid && address?.touched
+                ? 'is-invalid'
+                : address?.touched && address?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
+          <div
+            class="valid-feedback"
+            *ngIf="address?.valid && address?.touched"
+          >
+            Looks good
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="address?.invalid && address?.touched"
+          >
+            <div *ngIf="address?.hasError('required')">Address is required</div>
+            <div *ngIf="address?.hasError('minlength')">
+              Address must be at least
+              {{ address?.errors?.minlength.requiredLength }} characters
+            </div>
+          </div>
         </div>
       </div>
     </fieldset>
@@ -171,7 +381,32 @@
             class="form-control"
             id="prevschool"
             formControlName="prevschool"
+            [ngClass]="
+              !prevschool?.valid && prevschool?.touched
+                ? 'is-invalid'
+                : prevschool?.touched && prevschool?.valid
+                ? 'is-valid'
+                : ''
+            "
           />
+          <div
+            class="valid-feedback"
+            *ngIf="prevschool?.valid && prevschool?.touched"
+          >
+            Looks good
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="prevschool?.invalid && prevschool?.touched"
+          >
+            <div *ngIf="prevschool?.hasError('required')">
+              Previous School is required
+            </div>
+            <div *ngIf="prevschool?.hasError('minlength')">
+              School name must be at least
+              {{ prevschool?.errors?.minlength.requiredLength }} characters
+            </div>
+          </div>
         </div>
         <div class="col-md-4">
           <label
@@ -180,12 +415,34 @@
             aria-placeholder="Level applied for"
             >Level Applied For</label
           >
-          <select class="form-control" id="level" formControlName="level">
+          <select
+            class="form-control"
+            id="level"
+            formControlName="level"
+            [ngClass]="
+              !level?.valid && level?.touched
+                ? 'is-invalid'
+                : level?.touched && level?.valid
+                ? 'is-valid'
+                : ''
+            "
+          >
             <option value="">Click to choose</option>
             <option [value]="level" *ngFor="let level of levels">
               Form {{ level }}
             </option>
           </select>
+          <div class="valid-feedback" *ngIf="level?.valid && level?.touched">
+            Looks good
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="level?.invalid && level?.touched"
+          >
+            <div *ngIf="level?.hasError('required')">
+              Choose level applied for
+            </div>
+          </div>
         </div>
         <div class="col-12 py-2" *ngIf="level.value == 5 || level.value == 6">
           <label class="form-label" for="sname"
@@ -235,7 +492,7 @@
           </thead>
           <tbody *ngFor="let subject of subjects.controls; let i = index">
             <tr [formGroupName]="i">
-              <td>{{ i }}</td>
+              <td>{{ +i + 1 }}</td>
               <td>
                 <input
                   class="form-control"
