@@ -1,7 +1,18 @@
+import { IsEmail, IsString } from 'class-validator';
+
 export class ReadSchoolDto {
-    id: string;
-    name: string;
-    cell: string;
-    email: string;
-    address: string;
+  @IsString()
+  id: string;
+
+  @IsString()
+  name: string;
+
+  @IsString()
+  cell: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  address: string;
 }
