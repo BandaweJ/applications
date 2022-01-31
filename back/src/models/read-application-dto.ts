@@ -1,5 +1,7 @@
 import { ReadSchoolDto } from './read-school-dto';
 export class ReadApplicationDto {
+  id: string;
+
   academicDetails: {
     level: string;
     prevschool: string;

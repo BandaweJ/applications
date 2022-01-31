@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { type } from 'os';
 
 import { SchoolsModule } from './schools/schools.module';
+import { ApplicationsModule } from './applications/applications.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { SchoolsModule } from './schools/schools.module';
       synchronize: true,
     }
     ),
-    SchoolsModule
+    SchoolsModule,
+    ApplicationsModule
 ],
   controllers: [],
   providers: [],
