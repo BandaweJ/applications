@@ -1,5 +1,5 @@
 import { GetSchool } from './get-school';
-export interface ReadApplication {
+export interface CreateApplication {
   academicDetails: {
     level: string;
     prevschool: string;

@@ -3,7 +3,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SchoolsService } from '../manage-schools/schools.service';
 import { GetSchool } from '../models/get-school';
-import { ReadApplication } from '../models/create-application';
+import { CreateApplication } from '../models/create-application';
+import { ApplicationsService } from '../../../../back/src/applications/applications.service';
 
 @Component({
   selector: 'app-new',
@@ -40,7 +41,10 @@ export class NewComponent implements OnInit {
   ];
   grades: string[] = ['A', 'B', 'C', 'D', 'E'];
 
-  constructor(private schoolsService: SchoolsService) {}
+  constructor(
+    private schoolsService: SchoolsService,
+    private applicationsService: ApplicationsService
+  ) {}
 
   ngOnInit(): void {
     this.schoolsService.getSchools().subscribe((schools) => {
@@ -199,12 +203,12 @@ export class NewComponent implements OnInit {
     // console.log('Subject Combination: ');
     // console.log(this.chosenSubjs);
 
-    let app: ReadApplication = {
+    let app: CreateApplication = {
       ...this.appForm.value,
       selectedSchools: this.selectedSchools,
       aLevelCombination: this.chosenSubjs,
     };
 
-    console.log(app);
+    console.log(this.applicationsService.createApplication(app));
   }
 }
