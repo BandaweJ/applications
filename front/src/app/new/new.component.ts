@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SchoolsService } from '../manage-schools/schools.service';
 import { GetSchool } from '../models/get-school';
+import { ReadApplication } from '../models/create-application';
 
 @Component({
   selector: 'app-new',
@@ -191,11 +192,19 @@ export class NewComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Form: ');
-    console.log(this.appForm.value);
-    console.log('Selected Schools: ');
-    console.log(this.selectedSchools);
-    console.log('Subject Combination: ');
-    console.log(this.chosenSubjs);
+    // console.log('Form: ');
+    // console.log(this.appForm.value);
+    // console.log('Selected Schools: ');
+    // console.log(this.selectedSchools);
+    // console.log('Subject Combination: ');
+    // console.log(this.chosenSubjs);
+
+    let app: ReadApplication = {
+      ...this.appForm.value,
+      selectedSchools: this.selectedSchools,
+      aLevelCombination: this.chosenSubjs,
+    };
+
+    console.log(app);
   }
 }
