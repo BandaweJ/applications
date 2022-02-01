@@ -22,10 +22,13 @@ export class ApplicationsService {
   async createApplication(
     application: CreateApplicationDto,
   ): Promise<ApplicationsEntity> {
-    application.personalDetails.studentnumber =
-      await this.generateStudentNumber();
+    let stid = await this.generateStudentNumber();
+
+    application.personalDetails.studentnumber = stid;
 
     let app = new ApplicationsEntity();
+
+    app.id = stid;
     app.data = {
       ...application,
     };
@@ -38,6 +41,45 @@ export class ApplicationsService {
   }
 
   async generateStudentNumber() {
-    return 'S22010000';
+    let L = 'S';
+    let today = new Date();
+    let YY = today.getFullYear().toString().substring(2);
+    let month = today.getMonth().toString();
+    let MM = '';
+    month.length === 1 ? (MM = '0' + month) : (MM = month);
+    let NNN = '000';
+    let currentId: ApplicationsEntity[];
+    try {
+      currentId = await this.applicationsRepository.find({
+        select: ['id'],
+        order: {
+          id: 'DESC',
+        },
+        take: 1,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    if (currentId.length > 0) {
+      let number = +currentId[0].id.substring(5, 8) + 1;
+      number.toString().length === 1
+        ? (NNN = '00' + number)
+        : number.toString().length === 2
+        ? (NNN = '0' + number)
+        : (NNN = number.toString());
+    }
+
+    let newId = L + YY + MM + NNN + this.calculateCheckDigit(YY, MM, NNN);
+
+    return newId;
+  }
+
+  calculateCheckDigit(year: string, month: string, number: string) {
+    let id: string = year + month + number;
+    let result: number = id
+      .split('')
+      .reduce((sum, current) => sum + +current, 0);
+
+    return Math.floor(result / 7);
   }
 }

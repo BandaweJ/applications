@@ -3,7 +3,7 @@ import { CreateApplicationDto } from '../../models/create-application-dto';
 
 @Entity('applications')
 export class ApplicationsEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   id: string;
 
   @Column('simple-json')

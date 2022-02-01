@@ -211,6 +211,6 @@ export class NewComponent implements OnInit {
 
     this.applicationsService
       .createApplication(app)
-      .subscribe((result) => console.log(result));
+      .subscribe((result: any) => console.log(result));
   }
 }
