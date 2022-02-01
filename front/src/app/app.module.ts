@@ -14,7 +14,7 @@ import { ManageApplicationsComponent } from './manage-applications/manage-applic
 import { ManageSchoolsComponent } from './manage-schools/manage-schools.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SchoolsService } from './manage-schools/schools.service';
-
+import { ApplicationsService } from './new/applications-service.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { SchoolsService } from './manage-schools/schools.service';
     SigninComponent,
     SignupComponent,
     ManageApplicationsComponent,
-    ManageSchoolsComponent
+    ManageSchoolsComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +35,7 @@ import { SchoolsService } from './manage-schools/schools.service';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [SchoolsService],
-  bootstrap: [AppComponent]
+  providers: [SchoolsService, ApplicationsService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
