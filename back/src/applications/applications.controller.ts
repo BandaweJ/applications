@@ -13,6 +13,11 @@ export class ApplicationsController {
     return this.applicationsService.getAllApplications();
   }
 
+  @Get('/practice')
+  getId() {
+    return this.applicationsService.generateStudentNumber();
+  }
+
   @Get('/:id')
   getById(@Param('id') id: string) {
     return this.applicationsService.getApplicationById(id);
