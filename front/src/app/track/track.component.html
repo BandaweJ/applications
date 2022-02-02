@@ -1,1 +1,42 @@
-<p>track works!</p>
+<div class="row">
+  <div class="p-3 col-md-8 mx-auto">
+    <form [formGroup]="trackForm" class="row" (ngSubmit)="onSubmit()">
+      <div class="col-md-4">
+        <label for="trackid" class="form-label">Student Number</label>
+      </div>
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Student Number"
+          formControlName="trackid"
+          [ngClass]="
+            !trackid?.valid && trackid?.touched
+              ? 'is-invalid'
+              : trackid?.touched && trackid?.valid
+              ? 'is-valid'
+              : ''
+          "
+        />
+        <div class="valid-feedback" *ngIf="trackid?.valid && trackid?.touched">
+          Looks good
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="trackid?.invalid && trackid?.touched"
+        >
+          <div *ngIf="trackid?.hasError('required')">
+            Student Number is required
+          </div>
+          <div *ngIf="trackid?.hasError('pattern')">
+            Student Number format is wrong
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-success">Track</button>
+      </div>
+    </form>
+    <div class="row"></div>
+  </div>
+</div>

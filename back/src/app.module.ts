@@ -5,6 +5,7 @@ import { type } from 'os';
 
 import { SchoolsModule } from './schools/schools.module';
 import { ApplicationsModule } from './applications/applications.module';
+import { TrackModule } from './track/track.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { ApplicationsModule } from './applications/applications.module';
     }
     ),
     SchoolsModule,
-    ApplicationsModule
+    ApplicationsModule,
+    TrackModule
 ],
   controllers: [],
   providers: [],

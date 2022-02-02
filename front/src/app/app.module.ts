@@ -15,6 +15,7 @@ import { ManageSchoolsComponent } from './manage-schools/manage-schools.componen
 import { HttpClientModule } from '@angular/common/http';
 import { SchoolsService } from './manage-schools/schools.service';
 import { ApplicationsService } from './new/applications-service.service';
+import { TrackService } from './track/track.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { ApplicationsService } from './new/applications-service.service';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [SchoolsService, ApplicationsService],
+  providers: [SchoolsService, ApplicationsService, TrackService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

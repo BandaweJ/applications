@@ -41,6 +41,7 @@ export class ApplicationsService {
   }
 
   async generateStudentNumber() {
+    //Format LYYMMNNNC
     let L = 'S';
     let today = new Date();
     let YY = today.getFullYear().toString().substring(2);

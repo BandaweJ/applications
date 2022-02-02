@@ -6,6 +6,9 @@ export class ApplicationsEntity {
   @PrimaryColumn()
   id: string;
 
+  @Column({ default: 'P' })
+  status: string;
+
   @Column('simple-json')
   data: CreateApplicationDto;
 }
