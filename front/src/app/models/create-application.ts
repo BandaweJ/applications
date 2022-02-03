@@ -29,7 +29,7 @@ export interface CreateApplication {
     studentnumber: string;
   };
 
-  selectedSchools: GetSchool;
+  selectedSchools: GetSchool[];
 
   aLevelCombination: string[];
 }

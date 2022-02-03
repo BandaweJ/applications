@@ -31,7 +31,7 @@ export interface GetApplication {
       studentnumber: string;
     };
 
-    selectedSchools: GetSchool;
+    selectedSchools: GetSchool[];
 
     aLevelCombination: string[];
   };

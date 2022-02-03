@@ -31,7 +31,7 @@ export class ReadApplicationDto {
     studentnumber: string;
   };
 
-  selectedSchools: ReadSchoolDto;
+  selectedSchools: ReadSchoolDto[];
 
   aLevelCombination: string[];
 }
