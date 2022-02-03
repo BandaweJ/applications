@@ -2,7 +2,9 @@
 back/dist
 back/node_modules
 
+
 #misc 
+./back/.angular/cache
 # Logs
 back/logs
 back/*.log

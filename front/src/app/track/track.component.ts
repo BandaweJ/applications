@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { GetApplication } from '../models/get-application';
 import { TrackService } from './track.service';
 
 @Component({
@@ -12,6 +13,11 @@ export class TrackComponent implements OnInit {
   constructor(private trackService: TrackService) {}
 
   trackForm!: FormGroup;
+
+  fetchedApplication!: GetApplication;
+
+  msg: string = '';
+  found: boolean = false;
 
   ngOnInit(): void {
     this.trackForm = new FormGroup({
@@ -30,13 +36,14 @@ export class TrackComponent implements OnInit {
     console.log('Submitted: ');
     console.log(this.trackForm.value);
     this.trackService.trackApplication(this.trackid!.value).subscribe(
-      (result) => {
-        {
-          console.log(result);
-        }
+      (result: GetApplication) => {
+        this.found = true;
+        this.fetchedApplication = result;
+        console.log(this.fetchedApplication);
       },
       (error: HttpErrorResponse) => {
-        console.error(error.message);
+        this.found = false;
+        this.msg = error.error.message;
       }
     );
   }
