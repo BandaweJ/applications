@@ -6,6 +6,7 @@ import { type } from 'os';
 import { SchoolsModule } from './schools/schools.module';
 import { ApplicationsModule } from './applications/applications.module';
 import { TrackModule } from './track/track.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,14 +20,14 @@ import { TrackModule } from './track/track.module';
       username: 'root',
       password: '',
       database: 'applications',
-      entities: ["dist/**/*.entity{.ts,.js}"],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
-    }
-    ),
+    }),
     SchoolsModule,
     ApplicationsModule,
-    TrackModule
-],
+    TrackModule,
+    AuthModule,
+  ],
   controllers: [],
   providers: [],
 })

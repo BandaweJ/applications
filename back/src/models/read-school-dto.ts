@@ -1,4 +1,5 @@
 import { IsEmail, IsString } from 'class-validator';
+import { UsersEntity } from 'src/auth/entities/users.entity';
 
 export class ReadSchoolDto {
   id: string;
@@ -10,4 +11,6 @@ export class ReadSchoolDto {
   email: string;
 
   address: string;
+
+  users: UsersEntity[];
 }

@@ -9,54 +9,56 @@ import { ReadSchoolDto } from 'src/models/read-school-dto';
 
 @Injectable()
 export class SchoolsService {
-    constructor(
-        @InjectRepository(SchoolsRepository)
-        private readonly schoolsRepository: SchoolsRepository,
-    ){}
+  constructor(
+    @InjectRepository(SchoolsRepository)
+    private readonly schoolsRepository: SchoolsRepository,
+  ) {}
 
-    async getAllSchools(): Promise<SchoolsEntity[]>{
-        return await this.schoolsRepository.find();
+  async getAllSchools(): Promise<SchoolsEntity[]> {
+    return await this.schoolsRepository.find();
+  }
+
+  async getSchoolById(id: string): Promise<SchoolsEntity> {
+    const found = await this.schoolsRepository.findOne(id);
+
+    if (!found) {
+      throw new NotFoundException(`School with id ${id} not found`);
     }
 
-    async getSchoolById(id: string): Promise<SchoolsEntity>{
-        const found = await this.schoolsRepository.findOne(id);
+    return found;
+  }
 
-        if(!found){
-            throw new NotFoundException(`School with id ${id} not found`);
-        }
+  async createSchool(createSchoolDto: CreateSchoolDto): Promise<ReadSchoolDto> {
+    const { name, cell, email, address } = createSchoolDto;
 
-        return found;
-    }
+    const school = new SchoolsEntity();
 
-    
-    async createSchool(createSchoolDto: CreateSchoolDto): Promise<ReadSchoolDto>{
-        const { name, cell, email, address } = createSchoolDto;
+    school.address = address;
+    school.name = name;
+    school.cell = cell;
+    school.email = email;
 
-        const school = new SchoolsEntity();
+    return await school.save();
+  }
 
-        school.address = address;
-        school.name = name;
-        school.cell = cell;
-        school.email = email;
+  //   async updateSchool(
+  //     id: string,
+  //     updateSchoolDto: UpdateSchoolDto,
+  //   ): Promise<ReadSchoolDto> {
+  //     let school = await this.getSchoolById(id);
 
-        return await this.schoolsRepository.save(school);
-    }
+  //     school = {
+  //       ...school,
+  //       ...updateSchoolDto,
+  //     };
 
-    async updateSchool(id: string, updateSchoolDto: UpdateSchoolDto): Promise<ReadSchoolDto>{
-        let school = await this.getSchoolById(id);
+  //     return await this.schoolsRepository.save(school);
+  //     //return school;
+  //   }
 
-        school = {
-            ...school,
-            ...updateSchoolDto
-        }
+  async deleteSchool(id: string): Promise<any> {
+    const school = await this.getSchoolById(id);
 
-        return await this.schoolsRepository.save(school);
-        //return school;
-    }
-
-    async deleteSchool(id: string): Promise<any>{
-        const school = await this.getSchoolById(id);
-
-        await this.schoolsRepository.delete(school);
-    }
+    await this.schoolsRepository.delete(school);
+  }
 }

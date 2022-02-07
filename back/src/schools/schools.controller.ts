@@ -6,28 +6,26 @@ import { UpdateSchoolDto } from '../models/update-school-dto';
 
 @Controller('schools')
 export class SchoolsController {
+  constructor(private schoolsService: SchoolsService) {}
 
-    constructor(private schoolsService: SchoolsService){}
+  @Get()
+  getAllSchools() {
+    return this.schoolsService.getAllSchools();
+  }
 
-    @Get()
-    getAllSchools(){
-        return this.schoolsService.getAllSchools();
-    }
+  @Get('/:id')
+  getSchoolById(@Param('id') id: string) {
+    return this.schoolsService.getSchoolById(id);
+  }
 
-    @Get('/:id')
-    getSchoolById(@Param('id') id: string){
-        return this.schoolsService.getSchoolById(id);
-    }
+  @Post()
+  createSchool(@Body() createSchoolDto: CreateSchoolDto) {
+    //return 'in schools controller';
+    return this.schoolsService.createSchool(createSchoolDto);
+  }
 
-    @Post()
-    createSchool(@Body() createSchoolDto: CreateSchoolDto){
-        //return 'in schools controller';
-        return this.schoolsService.createSchool(createSchoolDto);
-    }
-
-    @Patch('/:id')
-    updateSchool(@Param('id') id: string, @Body () updateSchoolDto: UpdateSchoolDto){
-        return this.schoolsService.updateSchool(id, updateSchoolDto)
-    }
-
+  // @Patch('/:id')
+  // updateSchool(@Param('id') id: string, @Body () updateSchoolDto: UpdateSchoolDto){
+  //     return this.schoolsService.updateSchool(id, updateSchoolDto)
+  // }
 }

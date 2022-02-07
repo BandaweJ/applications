@@ -1,26 +1,29 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { UsersEntity } from './users.entity';
+import { UsersEntity } from 'src/auth/entities/users.entity';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+} from 'typeorm';
 
 @Entity('schools')
-export class SchoolsEntity{
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+export class SchoolsEntity extends BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    cell: string;
+  @Column()
+  cell: string;
 
-    @Column()
-    email: string;
+  @Column()
+  email: string;
 
-    @Column()
-    address: string;
+  @Column()
+  address: string;
 
-    @OneToMany(
-        () => UsersEntity,
-        (user) => user.school
-    )
-    users: UsersEntity[]
+  @OneToMany(() => UsersEntity, (user) => user.school)
+  users: UsersEntity[];
 }
