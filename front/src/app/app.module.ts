@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SchoolsService } from './manage-schools/schools.service';
 import { ApplicationsService } from './new/applications-service.service';
 import { TrackService } from './track/track.service';
+//import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TrackService } from './track/track.service';
     SignupComponent,
     ManageApplicationsComponent,
     ManageSchoolsComponent,
+    //AuthComponent,
   ],
   imports: [
     BrowserModule,

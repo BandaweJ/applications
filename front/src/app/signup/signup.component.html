@@ -1,1 +1,49 @@
-<p>signup works!</p>
+<div class="row">
+  <form
+    class="d-flex bd-highlight flex-column col-md-6 mx-auto p-3"
+    [formGroup]="signupForm"
+  >
+    <div class="row">
+      <div class="col-md-4">
+        <label for="username" class="align-self-center text-right"
+          >Username</label
+        >
+      </div>
+      <div class="col-md-8">
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          formControlName="username"
+          [ngClass]="
+            username?.touched && !username?.valid
+              ? 'is-invalid'
+              : username?.touched && username?.valid
+              ? 'is-valid'
+              : ''
+          "
+        />
+        <div
+          class="valid-feedback"
+          *ngIf="username?.touched && username?.valid"
+        >
+          Look Good
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="username?.touched && username?.invalid"
+        >
+          <div *ngIf="username?.hasError('required')">Username is required</div>
+          <div *ngIf="username?.hasError('minlength')">
+            Name must be at least
+            {{ username?.errors?.minlength.requiredLength }} characters
+          </div>
+          <div *ngIf="username?.hasError('maxlength')">
+            Name must be at most
+            {{ username?.errors?.maxlength.requiredLength }} characters
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

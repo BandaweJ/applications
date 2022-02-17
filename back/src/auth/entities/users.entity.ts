@@ -28,7 +28,7 @@ export class UsersEntity extends BaseEntity {
   @Column()
   salt: string;
 
-  @ManyToOne(() => SchoolsEntity, (school) => school.users)
+  @ManyToOne(() => SchoolsEntity, (school) => school.users, { eager: true })
   school: SchoolsEntity;
 
   async validatePassword(password: string): Promise<boolean> {
