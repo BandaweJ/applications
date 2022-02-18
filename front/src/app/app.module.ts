@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SchoolsService } from './manage-schools/schools.service';
 import { ApplicationsService } from './new/applications-service.service';
 import { TrackService } from './track/track.service';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 //import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { TrackService } from './track/track.service';
     SignupComponent,
     ManageApplicationsComponent,
     ManageSchoolsComponent,
+    LoadingSpinnerComponent,
     //AuthComponent,
   ],
   imports: [

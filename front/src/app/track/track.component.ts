@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GetApplication } from '../models/get-application';
@@ -13,6 +14,8 @@ export class TrackComponent implements OnInit {
   constructor(private trackService: TrackService) {}
 
   trackForm!: FormGroup;
+
+  loading: boolean = false;
 
   fetchedApplication!: GetApplication;
 
@@ -33,6 +36,7 @@ export class TrackComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = !this.loading;
     console.log('Submitted: ');
     console.log(this.trackForm.value);
     this.trackService.trackApplication(this.trackid!.value).subscribe(
@@ -46,5 +50,6 @@ export class TrackComponent implements OnInit {
         this.msg = error.error.message;
       }
     );
+    this.loading = !this.loading;
   }
 }

@@ -45,6 +45,9 @@
         {{ msg }}
       </div>
     </div>
+    <div class="row" *ngIf="loading">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
     <div class="row my-3" *ngIf="found">
       <div
         class="col-md-12 p-3 text-center text-white"
