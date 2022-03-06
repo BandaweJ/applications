@@ -7,6 +7,7 @@ import { EntityRepository, Repository } from 'typeorm';
 import { UsersEntity } from '../entities/users.entity';
 import { AuthCredentialsDto } from '../models/auth-credentials.dto';
 import * as bcrypt from 'bcrypt';
+import { SchoolsEntity } from 'src/schools/entities/schools.entity';
 
 @EntityRepository(UsersEntity)
 export class UsersRepository extends Repository<UsersEntity> {
@@ -35,13 +36,14 @@ export class UsersRepository extends Repository<UsersEntity> {
 
   async validateUserPassword(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<string> {
+  ): Promise<{ username: string; school: SchoolsEntity }> {
     const { username, password } = authCredentialsDto;
 
     const user = await this.findOne({ username });
 
     if (user && (await user.validatePassword(password))) {
-      return username;
+      let school = user.school;
+      return { username, school };
     } else {
       return null;
       //throw new UnauthorizedException('Username or password is not correct');

@@ -1,0 +1,189 @@
+<div class="row">
+  <div *ngIf="loading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div
+    class="col-md-12 text-center d-block mx-auto text-danger"
+    *ngIf="errorMsg"
+  >
+    {{ errorMsg }}
+  </div>
+  <form
+    *ngIf="!loading"
+    class="bd-highlight col-md-6 d-block mx-auto p-3"
+    [formGroup]="authForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="row my-3">
+      <div class="col-md-4 text-end align-items-end">
+        <label for="username">Username</label>
+      </div>
+      <div class="col-md-8 justify-content-start">
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          formControlName="username"
+          [ngClass]="
+            username?.touched && !username?.valid
+              ? 'is-invalid'
+              : username?.touched && username?.valid
+              ? 'is-valid'
+              : ''
+          "
+        />
+        <div
+          class="valid-feedback"
+          *ngIf="username?.touched && username?.valid"
+        >
+          Look Good
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="username?.touched && username?.invalid"
+        >
+          <div *ngIf="username?.hasError('required')">Username is required</div>
+          <div *ngIf="username?.hasError('minlength')">
+            Name must be at least
+            {{ username?.errors?.minlength.requiredLength }} characters
+          </div>
+          <div *ngIf="username?.hasError('maxlength')">
+            Name must be at most
+            {{ username?.errors?.maxlength.requiredLength }} characters
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-md-4 text-end align-items-end">
+        <label for="password">Password</label>
+      </div>
+      <div class="col-md-8 justify-content-start">
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          formControlName="password"
+          [ngClass]="
+            password?.touched && !password?.valid
+              ? 'is-invalid'
+              : password?.touched && password?.valid
+              ? 'is-valid'
+              : ''
+          "
+        />
+        <div
+          class="valid-feedback"
+          *ngIf="password?.touched && password?.valid"
+        >
+          Look Good
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="password?.touched && password?.invalid"
+        >
+          <div *ngIf="password?.hasError('required')">Password is required</div>
+          <div *ngIf="password?.hasError('minlength')">
+            Password must be at least
+            {{ password?.errors?.minlength.requiredLength }} characters
+          </div>
+          <div *ngIf="password?.hasError('maxlength')">
+            Password must be at most
+            {{ password?.errors?.maxlength.requiredLength }} characters
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row my-3" *ngIf="!isLoggedInMode">
+      <div class="col-md-4 text-end align-items-end">
+        <label for="confirm">Confirm Password</label>
+      </div>
+      <div class="col-md-8 justify-content-start">
+        <input
+          type="password"
+          id="confirm"
+          class="form-control"
+          formControlName="confirm"
+          [ngClass]="
+            confirm?.touched && !passwordsMatch()
+              ? 'is-invalid'
+              : confirm?.touched && passwordsMatch()
+              ? 'is-valid'
+              : ''
+          "
+        />
+        <div class="valid-feedback" *ngIf="confirm?.touched && passwordsMatch">
+          Passwords match
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="confirm?.touched && !passwordsMatch"
+        >
+          <div *ngIf="confirm?.hasError('required')">Password is required</div>
+          <div *ngIf="confirm?.hasError('minlength')">
+            Password must be at least
+            {{ confirm?.errors?.minlength.requiredLength }} characters
+          </div>
+          <div *ngIf="password?.hasError('maxlength')">
+            Password must be at most
+            {{ confirm?.errors?.maxlength.requiredLength }} characters
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row my-3" *ngIf="!isLoggedInMode">
+      <div class="col-md-4 text-end align-items-end">
+        <label for="school">School to Manage</label>
+      </div>
+      <div class="col-md-8 justify-content-start">
+        <select
+          id="school"
+          class="form-control"
+          formControlName="school"
+          [ngClass]="
+            school?.touched && school?.invalid
+              ? 'is-invalid'
+              : school?.touched && school?.valid
+              ? 'is-valid'
+              : ''
+          "
+        >
+          <option value="">Select School</option>
+          <option *ngFor="let school of schools" [value]="school.id">
+            {{ school.name + " " + school.address }}
+          </option>
+        </select>
+
+        <div class="valid-feedback" *ngIf="school?.touched && school?.valid">
+          Looks good
+        </div>
+        <div class="invalid-feedback" *ngIf="school?.touched && !school?.valid">
+          <div *ngIf="school?.hasError('required')">Choose a school</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-md-4"></div>
+      <div class="col-md-8 justify-content-start">
+        <button
+          type="submit"
+          class="btn btn-info"
+          [disabled]="disableLoginButton()"
+        >
+          Sign {{ isLoggedInMode ? "In" : "Up" }}
+        </button>
+        <button
+          type="button"
+          (click)="switchLogInMode()"
+          class="mx-3 btn btn-info"
+        >
+          Switch to {{ isLoggedInMode ? "Sign Up" : "Sign In" }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,9 @@
+.user-info {
+  width: 20%;
+  /* float: right; */
+  position: absolute;
+  right: 0;
+  top: 1rem;
+  color: white;
+  font-size: small;
+}

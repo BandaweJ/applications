@@ -4,7 +4,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SchoolsService } from '../manage-schools/schools.service';
 import { GetSchool } from '../models/get-school';
 import { CreateApplication } from '../models/create-application';
-import { ApplicationsService } from './applications-service.service';
+import { ApplicationsService } from '../shared/applications-service.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new',
@@ -17,8 +18,9 @@ export class NewComponent implements OnInit {
     private applicationsService: ApplicationsService
   ) {}
 
-  schools!: GetSchool[]; //list of registered school
-  currentSchool!: GetSchool;
+  //schools!: GetSchool[]; //list of registered school
+  schools$!: Observable<GetSchool[]>;
+  //currentSchool!: GetSchool;
 
   selectedSchools: GetSchool[] = []; //schools applied to
   chosenSubjs: string[] = []; //subject chosen for A level combinations
@@ -47,9 +49,10 @@ export class NewComponent implements OnInit {
   grades: string[] = ['A', 'B', 'C', 'D', 'E'];
 
   ngOnInit(): void {
-    this.schoolsService.getSchools().subscribe((schools) => {
-      this.schools = schools;
-    });
+    // this.schoolsService.getSchools().subscribe((schools) => {
+    //   this.schools = schools;
+    // });
+    this.schools$ = this.schoolsService.getSchools();
 
     this.appForm = new FormGroup({
       personalDetails: new FormGroup({
@@ -196,13 +199,6 @@ export class NewComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log('Form: ');
-    // console.log(this.appForm.value);
-    // console.log('Selected Schools: ');
-    // console.log(this.selectedSchools);
-    // console.log('Subject Combination: ');
-    // console.log(this.chosenSubjs);
-
     let app: CreateApplication = {
       ...this.appForm.value,
       selectedSchools: this.selectedSchools,

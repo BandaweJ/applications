@@ -23,7 +23,7 @@ export class SigninComponent implements OnInit {
     const { username, password } = this.signinForm.value;
     this.authService.signIn({ username, password }).subscribe((result) => {
       console.log(result);
+      localStorage.setItem('accessToken', result.accessToken);
     });
-    console.log(username + ' ' + password);
   }
 }

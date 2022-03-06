@@ -19,6 +19,16 @@ export class ApplicationsService {
     return await this.applicationsRepository.findOne(id);
   }
 
+  async getApplicationsByStatus(status: string): Promise<ApplicationsEntity[]> {
+    return await this.applicationsRepository.find({ status });
+  }
+
+  async changeApplicationStatus(id: string, status: string) {
+    let application = await this.getApplicationById(id);
+    application.status = status;
+    this.applicationsRepository.save(application);
+  }
+
   async createApplication(
     application: CreateApplicationDto,
   ): Promise<ApplicationsEntity> {

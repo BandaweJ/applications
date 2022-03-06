@@ -1,1 +1,8 @@
-<div class="lds-hourglass"></div>
+<div class="spinner-container" *ngIf="loadingService.loading$ | async">
+  <!-- <mat-spinner color="warn"></mat-spinner> -->
+  <div class="lds-facebook">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>

@@ -7,24 +7,27 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { ManageApplicationsComponent } from './manage-applications/manage-applications.component';
 import { ManageSchoolsComponent } from './manage-schools/manage-schools.component';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   { path: 'new', component: NewComponent },
   { path: 'track', component: TrackComponent },
-  { path: 'manage', component: ManageComponent, children: [
-    { path: 'applications', component: ManageApplicationsComponent },
-    { path: 'schools', component: ManageSchoolsComponent },
-  ]
- },
-  { path: 'signin', component: SigninComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: '',   redirectTo: 'new', pathMatch: 'full' }, // redirect to `first-component`
-  { path: '**', component: NewComponent },//Wildcard route for a 404 page
-
+  {
+    path: 'manage',
+    component: ManageComponent,
+    children: [
+      { path: 'applications', component: ManageApplicationsComponent },
+      { path: 'schools', component: ManageSchoolsComponent },
+    ],
+  },
+  { path: 'auth', component: AuthComponent },
+  // { path: 'signup', component: SignupComponent },
+  { path: '', redirectTo: 'new', pathMatch: 'full' }, // redirect to `first-component`
+  { path: '**', component: NewComponent }, //Wildcard route for a 404 page
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

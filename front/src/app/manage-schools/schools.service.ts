@@ -5,20 +5,18 @@ import { GetSchool } from '../models/get-school';
 import { CreateSchool } from '../models/create-school';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SchoolsService {
+  private baseURL: string = 'http://localhost:3000/schools';
 
-  baseURL: string = 'http://localhost:3000/schools';
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) {
-   }
+  getSchools(): Observable<GetSchool[]> {
+    return this.httpClient.get<GetSchool[]>(this.baseURL);
+  }
 
-   getSchools(): Observable<GetSchool[]>{
-     return this.httpClient.get<GetSchool[]>(this.baseURL);
-   }
-
-   createSchool(school: CreateSchool): Observable<GetSchool>{
-     return this.httpClient.post<GetSchool>(this.baseURL, school);
-   }
+  createSchool(school: CreateSchool): Observable<GetSchool> {
+    return this.httpClient.post<GetSchool>(this.baseURL, school);
+  }
 }

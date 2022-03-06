@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ThisReceiver } from '@angular/compiler';
+import { ThisReceiver, ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GetApplication } from '../models/get-application';
 import { TrackService } from './track.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-track',
@@ -11,16 +13,11 @@ import { TrackService } from './track.service';
   styleUrls: ['./track.component.css'],
 })
 export class TrackComponent implements OnInit {
-  constructor(private trackService: TrackService) {}
+  constructor(public trackService: TrackService) {}
 
   trackForm!: FormGroup;
 
-  loading: boolean = false;
-
-  fetchedApplication!: GetApplication;
-
-  msg: string = '';
-  found: boolean = false;
+  fetchedApplication$!: Observable<GetApplication>;
 
   ngOnInit(): void {
     this.trackForm = new FormGroup({
@@ -36,20 +33,8 @@ export class TrackComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading = !this.loading;
-    console.log('Submitted: ');
-    console.log(this.trackForm.value);
-    this.trackService.trackApplication(this.trackid!.value).subscribe(
-      (result: GetApplication) => {
-        this.found = true;
-        this.fetchedApplication = result;
-        console.log(this.fetchedApplication);
-      },
-      (error: HttpErrorResponse) => {
-        this.found = false;
-        this.msg = error.error.message;
-      }
+    this.fetchedApplication$ = this.trackService.trackApplication(
+      this.trackid!.value
     );
-    this.loading = !this.loading;
   }
 }

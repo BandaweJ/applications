@@ -1,0 +1,195 @@
+<div class="row my-3">
+  <div
+    class="col-md-12 p-3 text-center text-white"
+    [ngClass]="
+      fetchedApplication.status === 'P'
+        ? 'text-light bg-dark'
+        : fetchedApplication.status === 'A'
+        ? 'bg-success'
+        : 'bg-danger'
+    "
+  >
+    {{
+      fetchedApplication.status === "P"
+        ? "PENDING"
+        : fetchedApplication.status === "A"
+        ? "ACCEPTED"
+        : fetchedApplication.status === "R"
+        ? "REJECTED"
+        : ""
+    }}
+  </div>
+  <h4 class="text-center py-2 text-decoration-underline">
+    Application Details
+  </h4>
+  <h5 class="text-center py-1 text-info">Student Details</h5>
+
+  <div class="col-md-12 border border-info">
+    <div class="row my-2">
+      <div class="col-6">
+        <label>Student Number:</label>
+        <div class="detail">
+          {{ fetchedApplication.data.personalDetails.studentnumber }}
+        </div>
+      </div>
+      <div class="col-6">
+        <label>I.D Number:</label>
+        <div class="detail">
+          {{ fetchedApplication.data.personalDetails.idnumber }}
+        </div>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-3">
+        <label>Firstname(s)</label>
+        <div class="detail">
+          {{ fetchedApplication.data.personalDetails.firstname }}
+        </div>
+      </div>
+      <div class="col-3">
+        <label>Lastname(s)</label>
+        <div class="detail">
+          {{ fetchedApplication.data.personalDetails.lastname }}
+        </div>
+      </div>
+      <div class="col-3">
+        <label>Gender</label>
+        <div class="detail">
+          {{ fetchedApplication.data.personalDetails.sex }}
+        </div>
+      </div>
+      <div class="col-3">
+        <label>Date of Birth</label>
+        <div class="detail">
+          {{ fetchedApplication.data.personalDetails.dob }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 class="text-center py-1 text-info">Parent Details</h5>
+
+  <div class="col-md-12 border border-info">
+    <div class="row my-2">
+      <div class="col-3">
+        <label>Title:</label>
+        <div class="detail">
+          {{ fetchedApplication.data.parentDetails.title }}
+        </div>
+      </div>
+      <div class="col-6">
+        <label>Name(s):</label>
+        <div class="detail">
+          {{ fetchedApplication.data.parentDetails.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 class="text-center py-1 text-info">Contact Details</h5>
+
+  <div class="col-md-12 border border-info">
+    <div class="row my-2">
+      <div class="col-4">
+        <label>Phone Number:</label>
+        <div class="detail">
+          {{ fetchedApplication.data.contactDetails.cell }}
+        </div>
+      </div>
+      <div class="col-4">
+        <label>Email:</label>
+        <div class="detail">
+          {{ fetchedApplication.data.contactDetails.email }}
+        </div>
+      </div>
+      <div class="col-4">
+        <label>Address:</label>
+        <div class="detail">
+          {{ fetchedApplication.data.contactDetails.address }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 class="text-center py-1 text-info">Academic Details</h5>
+
+  <div class="col-md-12 border border-info">
+    <div class="row my-2">
+      <div class="col-6">
+        <label>Previous School:</label>
+        <div class="detail">
+          {{ fetchedApplication.data.academicDetails.prevschool }}
+        </div>
+      </div>
+      <div class="col-6">
+        <label>Applied For:</label>
+        <div class="detail">
+          {{ "Form " + fetchedApplication.data.academicDetails.level }}
+        </div>
+      </div>
+    </div>
+    <div class="row my-2">
+      <label class="com-md-12">Previous Results</label>
+      <table class="table table-striped table-hover table-borderless col-md-12">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Subject</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let subj of fetchedApplication.data.academicDetails.subjects;
+              let i = index
+            "
+          >
+            <td>{{ +i + 1 }}</td>
+            <td>{{ subj.name }}</td>
+            <td>{{ subj.grade }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div
+      class="row my-2"
+      *ngIf="fetchedApplication.data.aLevelCombination.length"
+    >
+      <label class="col-md-12 my-3">A Level Subject Combination</label>
+      <div
+        class="col card bg-light m-2"
+        *ngFor="
+          let subject of fetchedApplication.data.aLevelCombination;
+          index as i
+        "
+      >
+        {{ +i + 1 }}. {{ subject }}
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <label class="col-md-12 my-3">Schools Applied to</label>
+      <div
+        class="col"
+        *ngFor="let school of fetchedApplication.data.selectedSchools"
+      >
+        <div class="card text-center">
+          <div class="card-header bg-secondary text-white">
+            {{ school.name }}
+          </div>
+          <div class="card-body">
+            <label>Cell:</label>
+            <p class="detail">{{ school.cell }}</p>
+            <label>Email:</label>
+            <p class="detail">{{ school.email }}</p>
+          </div>
+          <div class="card-footer">
+            {{ school.address }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

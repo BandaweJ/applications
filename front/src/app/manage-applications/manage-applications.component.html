@@ -1,1 +1,75 @@
-<p>manage-applications works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-3">
+        <select
+          class="form-control-sm"
+          #option
+          (change)="changeApplicationsOption(option.value)"
+        >
+          <option value="P">Pending</option>
+          <option value="A">Accepted</option>
+          <option value="R">Rejected</option>
+        </select>
+      </div>
+      <div class="d-md-flex justify-content-around col-md-9" *ngIf="selected">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="changeApplicationStatus('A')"
+        >
+          ACCEPT
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          type="button"
+          (click)="changeApplicationStatus('R')"
+        >
+          REJECT
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark"
+          type="button"
+          (click)="changeApplicationStatus('P')"
+        >
+          PENDING
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <table class="table-sm table-bordered table-striped table table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Applied</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let app of applications$ | async"
+              (click)="choseApplication(app)"
+            >
+              <td>
+                {{
+                  app.data.personalDetails.firstname +
+                    app.data.personalDetails.lastname
+                }}
+              </td>
+              <td>{{ app.data.personalDetails.sex }}</td>
+              <td>{{ app.data.academicDetails.level }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-9 border-info" *ngIf="selected">
+        <app-display-application
+          [fetchedApplication]="chosenApplication"
+        ></app-display-application>
+      </div>
+    </div>
+  </div>
+</div>

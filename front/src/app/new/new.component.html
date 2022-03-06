@@ -550,7 +550,7 @@
           >
           <select multiple class="form-select" id="choice">
             <option
-              *ngFor="let school of schools"
+              *ngFor="let school of schools$ | async"
               [value]="school"
               (click)="onSelectSchool(school)"
             >

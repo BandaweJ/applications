@@ -14,13 +14,21 @@ import { ManageApplicationsComponent } from './manage-applications/manage-applic
 import { ManageSchoolsComponent } from './manage-schools/manage-schools.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SchoolsService } from './manage-schools/schools.service';
-import { ApplicationsService } from './new/applications-service.service';
+import { ApplicationsService } from './shared/applications-service.service';
 import { TrackService } from './track/track.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
-//import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from './auth/auth.component';
+import { DisplayApplicationComponent } from './display-application/display-application.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MessagesComponent } from './messages/messages.component';
+import { LoadingSpinnerService } from './shared/loading-spinner/loading-spinner.service';
+import { MessagesService } from './messages/messages.service';
 
 @NgModule({
   declarations: [
+    AuthComponent,
     AppComponent,
     NavigationComponent,
     NewComponent,
@@ -31,6 +39,9 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     ManageApplicationsComponent,
     ManageSchoolsComponent,
     LoadingSpinnerComponent,
+    DisplayApplicationComponent,
+    UserProfileComponent,
+    MessagesComponent,
     //AuthComponent,
   ],
   imports: [
@@ -39,8 +50,16 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule,
   ],
-  providers: [SchoolsService, ApplicationsService, TrackService],
+  providers: [
+    SchoolsService,
+    ApplicationsService,
+    TrackService,
+    LoadingSpinnerService,
+    MessagesService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
